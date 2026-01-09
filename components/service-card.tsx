@@ -18,7 +18,8 @@ export function ServiceCard({
 }: ServiceCardProps) {
   return (
     <div className="group relative h-full bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl overflow-hidden hover:shadow-2xl hover:shadow-primary/10 transition-all duration-300 transform hover:-translate-y-1">
-      <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary to-blue-400 transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
+      <div className="absolute inset-0 bg-linear-to-r from-primary/10 to-transparent pointer-events-none" />
+      <div className="absolute top-0 left-0 w-full h-1 bg-linear-to-r from-primary to-blue-400 transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
 
       <div className="p-6 flex flex-col h-full">
         <div className="mb-4">

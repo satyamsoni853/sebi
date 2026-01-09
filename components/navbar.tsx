@@ -3,13 +3,14 @@
 import Link from "next/link";
 import { ThemeToggle } from "./theme-toggle";
 import { usePathname } from "next/navigation";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 
 export function Navbar() {
   const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [hoveredServices, setHoveredServices] = useState(false);
 
   const navLinks = [
     { href: "/", label: "Home" },
@@ -29,7 +30,7 @@ export function Navbar() {
           <div className="flex items-center gap-6">
             <Link
               href="/"
-              className="flex items-center gap-2 font-black text-2xl tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-primary to-blue-600 dark:from-blue-400 dark:to-blue-200"
+              className="flex items-center gap-2 font-black text-2xl tracking-tighter text-transparent bg-clip-text bg-linear-to-r from-primary to-blue-600 dark:from-blue-400 dark:to-blue-200"
             >
               SEBI
             </Link>
@@ -42,28 +43,87 @@ export function Navbar() {
             {navLinks.map((link) => {
               const isActive = pathname === link.href;
               return (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className={`relative px-3 py-2 text-sm font-medium transition-colors hover:text-primary dark:hover:text-white ${
-                    isActive
-                      ? "text-primary dark:text-white"
-                      : "text-gray-600 dark:text-gray-400"
-                  }`}
-                >
-                  {link.label}
-                  {isActive && (
-                    <motion.div
-                      layoutId="navbar-indicator"
-                      className="absolute inset-0 bg-primary/10 dark:bg-white/10 rounded-lg -z-10"
-                      transition={{
-                        type: "spring",
-                        bounce: 0.2,
-                        duration: 0.6,
-                      }}
-                    />
+                <div key={link.href} className="relative group">
+                  {link.href === "/services" ? (
+                    <div
+                      onMouseEnter={() => setHoveredServices(true)}
+                      onMouseLeave={() => setHoveredServices(false)}
+                      className="relative"
+                    >
+                      <Link
+                        href={link.href}
+                        className={`px-3 py-2 text-sm font-medium transition-colors hover:text-primary dark:hover:text-white flex items-center gap-1 ${
+                          isActive || hoveredServices
+                            ? "text-primary dark:text-white"
+                            : "text-gray-600 dark:text-gray-400"
+                        }`}
+                      >
+                        {link.label}
+                        {/* <ChevronDown className="w-3 h-3 mt-0.5" /> */}
+                      </Link>
+
+                      {/* Mega Menu Dropdown */}
+                      <AnimatePresence>
+                        {hoveredServices && (
+                          <motion.div
+                            initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                            animate={{ opacity: 1, y: 0, scale: 1 }}
+                            exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                            transition={{ duration: 0.2, ease: "easeOut" }}
+                            className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-64 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl shadow-2xl p-4 grid grid-cols-1 gap-1 z-50 overflow-hidden"
+                          >
+                            {[
+                              { label: "Research Services", href: "/services" },
+                              { label: "Courses", href: "/courses" },
+                              {
+                                label: "Wealth Management",
+                                href: "/wealth-management",
+                              },
+                              { label: "Small Case", href: "/small-case" },
+                              { label: "Workshops", href: "/workshops" },
+                              { label: "Mutual Funds", href: "/mutual-funds" },
+                              { label: "Placements", href: "/placements" },
+                              { label: "Tools", href: "/tools" },
+                              { label: "Blog", href: "/blog" },
+                              { label: "FAQs", href: "/faqs" },
+                            ].map((item) => (
+                              <Link
+                                key={item.href}
+                                href={item.href}
+                                className="block px-4 py-2.5 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-primary/5 hover:text-primary dark:hover:bg-white/5 dark:hover:text-white transition-all text-left"
+                              >
+                                {item.label}
+                              </Link>
+                            ))}
+                            <div className="absolute inset-0 bg-linear-to-b from-primary/5 to-transparent pointer-events-none opacity-50" />
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+                  ) : (
+                    <Link
+                      href={link.href}
+                      className={`relative px-3 py-2 text-sm font-medium transition-colors hover:text-primary dark:hover:text-white ${
+                        isActive
+                          ? "text-primary dark:text-white"
+                          : "text-gray-600 dark:text-gray-400"
+                      }`}
+                    >
+                      {link.label}
+                      {isActive && (
+                        <motion.div
+                          layoutId="navbar-indicator"
+                          className="absolute inset-0 bg-primary/10 dark:bg-white/10 rounded-lg -z-10"
+                          transition={{
+                            type: "spring",
+                            bounce: 0.2,
+                            duration: 0.6,
+                          }}
+                        />
+                      )}
+                    </Link>
                   )}
-                </Link>
+                </div>
               );
             })}
           </nav>
@@ -82,7 +142,7 @@ export function Navbar() {
                 className="relative text-sm font-bold bg-primary text-white px-5 py-2.5 rounded-xl overflow-hidden group hover:shadow-lg hover:shadow-primary/25 transition-all duration-300"
               >
                 <span className="relative z-10">Get Started</span>
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-indigo-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="absolute inset-0 bg-linear-to-r from-blue-600 to-indigo-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </Link>
             </div>
 

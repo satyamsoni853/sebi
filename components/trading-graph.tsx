@@ -11,12 +11,12 @@ interface TradingGraphProps {
 export function TradingGraph({ onComplete }: TradingGraphProps) {
   // FIXED: Deterministic data (no Math.random) to prevent hydration mismatches
   const steps = [
-    { height: 60, delay: 0 },
-    { height: 100, delay: 0.8 },
-    { height: 140, delay: 1.6 },
-    { height: 180, delay: 2.4 },
-    { height: 220, delay: 3.2 },
-    { height: 260, delay: 4.0 },
+    { height: 60, delay: 0, message: "Market Entry" },
+    { height: 100, delay: 0.8, message: "Strategy Build" },
+    { height: 140, delay: 1.6, message: "Deep Analysis" },
+    { height: 180, delay: 2.4, message: "Live Trading" },
+    { height: 220, delay: 3.2, message: "Risk Control" },
+    { height: 260, delay: 4.0, message: "Happy Investor" },
   ];
 
   const [activeIndex, setActiveIndex] = useState(0);
@@ -77,7 +77,7 @@ export function TradingGraph({ onComplete }: TradingGraphProps) {
                     <User className="w-6 h-6" />
                   </div>
                   <div className="bg-white/80 dark:bg-black/80 text-[10px] px-2 py-0.5 rounded-full mt-1 font-bold text-primary dark:text-blue-300 backdrop-blur-md">
-                    Happy Investor
+                    {step.message}
                   </div>
                 </div>
               </motion.div>

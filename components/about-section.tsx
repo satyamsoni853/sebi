@@ -35,7 +35,7 @@ export function AboutSection() {
           <FadeIn className="lg:w-1/2" direction="left" delay={0.2}>
             <div className="relative h-[400px] w-full rounded-2xl overflow-hidden shadow-xl group">
               <img
-                src="c:/Users/ss969/.gemini/antigravity/brain/74a30a21-eba0-421c-8853-6464af8a2e49/trading_office_team_1767984819825.png"
+                src="/images/trading_office_team.png"
                 alt="Our Trading Floor"
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
               />
