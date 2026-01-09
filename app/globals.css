@@ -1,8 +1,13 @@
 @import "tailwindcss";
+@variant dark (&:where(.dark, .dark *));
 
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --primary: #0b1f3a;
+  --secondary: #ffffff;
+  --accent: #6b7280;
+  --cta: #c6a24e;
 }
 
 @theme inline {
@@ -10,13 +15,26 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+  --color-accent: var(--accent);
+  --color-cta: var(--cta);
 }
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
   }
+} */
+
+.dark {
+  --background: #0a0a0a;
+  --foreground: #ededed;
+  --primary: #60a5fa; /* Blue 400 - Better visibility on dark bg */
+  --secondary: #0f172a; /* Slate 900 - Dark text for light buttons if needed */
+  --accent: #9ca3af;
+  --cta: #fbbf24; /* Lighter Gold/Amber */
 }
 
 body {
