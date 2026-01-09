@@ -3,6 +3,7 @@ import { TrustStrip } from "../components/trust-strip";
 import { TelegramPromo } from "@/components/telegram-promo";
 import { AboutSection } from "../components/about-section";
 import { CoursesPreview } from "../components/courses-preview";
+import { VideoEducationSection } from "@/components/video-education-section";
 import { ServicesSection } from "../components/services-section";
 import { WhyChooseUs } from "../components/why-choose-us";
 import { ProcessSection } from "../components/process-section";
@@ -21,6 +22,7 @@ export default function Home() {
       <TelegramPromo />
       <AboutSection />
       <CoursesPreview />
+      <VideoEducationSection />
       <ServicesSection />
       <WhyChooseUs />
       <ProcessSection />

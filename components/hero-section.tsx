@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { FadeIn } from "@/components/fade-in";
 import { ArrowRight } from "lucide-react";
+import { motion } from "framer-motion";
 
 export function HeroSection() {
   return (
@@ -15,14 +16,38 @@ export function HeroSection() {
             </div>
           </FadeIn>
 
-          <FadeIn delay={0.1}>
-            <h1 className="text-5xl lg:text-7xl font-extrabold text-foreground mb-6 leading-tight">
-              Master the Markets with{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-blue-600 dark:from-blue-400 dark:to-blue-200">
+          <div className="overflow-hidden mb-6">
+            <h1 className="text-5xl lg:text-7xl font-extrabold text-foreground leading-tight flex flex-wrap justify-center gap-x-3 gap-y-1">
+              {["Master", "the", "Markets", "with"].map((word, i) => (
+                <motion.span
+                  key={i}
+                  initial={{ y: 40, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{
+                    duration: 0.8,
+                    delay: i * 0.15, // Stagger effect
+                    ease: [0.2, 0.65, 0.3, 0.9],
+                  }}
+                  className="inline-block"
+                >
+                  {word}
+                </motion.span>
+              ))}
+              <motion.span
+                initial={{ y: 40, opacity: 0, scale: 0.8 }}
+                animate={{ y: 0, opacity: 1, scale: 1 }}
+                transition={{
+                  duration: 0.8,
+                  delay: 0.6, // Delays until after "with" appears
+                  description: "Pop in effect for the keyword",
+                  ease: "easeOut",
+                }}
+                className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-blue-600 dark:from-blue-400 dark:to-blue-200 inline-block"
+              >
                 Confidence
-              </span>
+              </motion.span>
             </h1>
-          </FadeIn>
+          </div>
 
           <FadeIn delay={0.2}>
             <p className="text-xl text-gray-600 dark:text-gray-300 mb-10 max-w-2xl mx-auto leading-relaxed">

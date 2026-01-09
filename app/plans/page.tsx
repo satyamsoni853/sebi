@@ -4,6 +4,7 @@ import { PricingCard } from "@/components/pricing-card";
 import { DisclaimerStrip } from "@/components/disclaimer-strip";
 import { FadeIn } from "@/components/fade-in";
 import { FloatingIcons } from "@/components/floating-icons";
+import { PageHeader } from "@/components/page-header";
 
 const plans = [
   {
@@ -61,17 +62,10 @@ export default function PlansPage() {
   return (
     <main className="min-h-screen bg-background relative overflow-hidden">
       <FloatingIcons />
-      <div className="bg-primary text-secondary py-16 relative z-10">
-        <div className="container mx-auto px-4 text-center">
-          <FadeIn>
-            <h1 className="text-4xl font-bold mb-4">Subscription Plans</h1>
-            <p className="text-gray-300 max-w-2xl mx-auto">
-              Transparent pricing for professional research. Choose a plan that
-              suits your trading needs.
-            </p>
-          </FadeIn>
-        </div>
-      </div>
+      <PageHeader
+        title="Subscription Plans"
+        description="Transparent pricing for professional research. Choose a plan that suits your trading needs."
+      />
 
       <div className="container mx-auto px-4 py-16 relative z-10">
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">

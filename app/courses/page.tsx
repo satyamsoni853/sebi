@@ -1,9 +1,10 @@
 "use client";
 
 import { Footer } from "@/components/footer";
-import { BookOpen, Calendar, Clock, BarChart } from "lucide-react";
+import { Calendar, Clock } from "lucide-react";
 import { FadeIn } from "@/components/fade-in";
 import { FloatingIcons } from "@/components/floating-icons";
+import { PageHeader } from "@/components/page-header";
 
 const courses = [
   {
@@ -60,16 +61,10 @@ export default function CoursesPage() {
   return (
     <main className="min-h-screen bg-background text-foreground relative overflow-hidden">
       <FloatingIcons />
-      <div className="bg-primary text-secondary py-16 relative z-10">
-        <div className="container mx-auto px-4 text-center">
-          <FadeIn>
-            <h1 className="text-4xl font-bold mb-4">Trading Courses</h1>
-            <p className="text-xl text-gray-300 max-w-2xl mx-auto">
-              Upgrade your skills with our structured educational programs.
-            </p>
-          </FadeIn>
-        </div>
-      </div>
+      <PageHeader
+        title="Trading Courses"
+        description="Upgrade your skills with our structured educational programs."
+      />
 
       <div className="container mx-auto px-4 py-16 relative z-10">
         <div className="grid md:grid-cols-3 gap-8">

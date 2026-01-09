@@ -1,94 +1,87 @@
+"use client";
+
 import Link from "next/link";
 import { ThemeToggle } from "./theme-toggle";
+import { usePathname } from "next/navigation";
+import { motion } from "framer-motion";
 
 export function Navbar() {
+  const pathname = usePathname();
+
+  const navLinks = [
+    { href: "/", label: "Home" },
+    { href: "/about", label: "About Us" },
+    { href: "/services", label: "Services" },
+    { href: "/plans", label: "Plans" },
+    { href: "/methodology", label: "Methodology" },
+    { href: "/charter", label: "Investor Charter" },
+    { href: "/disclosures", label: "Disclosures" },
+    { href: "/contact", label: "Contact" },
+  ];
+
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-gray-200 dark:border-gray-800 bg-white/95 dark:bg-gray-950/95 backdrop-blur supports-[backdrop-filter]:bg-white/60 dark:supports-[backdrop-filter]:bg-gray-950/60">
-      <div className="container mx-auto flex h-16 max-w-screen-2xl items-center justify-between px-4">
-        <div className="flex items-center gap-6">
-          <Link
-            href="/"
-            className="flex items-center gap-2 font-bold text-xl text-primary dark:text-white"
-          >
-            SEBI
-          </Link>
-          <span className="hidden md:inline-block text-xs font-mono text-gray-500 dark:text-gray-400 border border-gray-200 dark:border-gray-800 px-2 py-0.5 rounded">
-            REG: INZ000000000
-          </span>
-        </div>
-
-        <nav className="hidden xl:flex items-center gap-6 text-sm font-medium">
-          <Link
-            href="/"
-            className="transition-colors hover:text-primary text-foreground"
-          >
-            Home
-          </Link>
-          <Link
-            href="/about"
-            className="transition-colors hover:text-primary text-gray-600 dark:text-gray-400"
-          >
-            About Us
-          </Link>
-          <Link
-            href="/services"
-            className="transition-colors hover:text-primary text-gray-600 dark:text-gray-400"
-          >
-            Services
-          </Link>
-          <Link
-            href="/plans"
-            className="transition-colors hover:text-primary text-gray-600 dark:text-gray-400"
-          >
-            Plans
-          </Link>
-          <Link
-            href="/methodology"
-            className="transition-colors hover:text-primary text-gray-600 dark:text-gray-400"
-          >
-            Research Methodology
-          </Link>
-          <Link
-            href="/charter"
-            className="transition-colors hover:text-primary text-gray-600 dark:text-gray-400"
-          >
-            Investor Charter
-          </Link>
-          <Link
-            href="/disclosures"
-            className="transition-colors hover:text-primary text-gray-600 dark:text-gray-400"
-          >
-            Disclosures
-          </Link>
-          <Link
-            href="/faqs"
-            className="transition-colors hover:text-primary text-gray-600 dark:text-gray-400"
-          >
-            FAQs
-          </Link>
-          <Link
-            href="/contact"
-            className="transition-colors hover:text-primary text-gray-600 dark:text-gray-400"
-          >
-            Contact
-          </Link>
-        </nav>
-
-        <div className="flex items-center gap-4">
-          <ThemeToggle />
-          <div className="hidden sm:flex items-center gap-4">
+    <header className="sticky top-4 z-50 w-full px-4 mx-auto max-w-7xl">
+      <div className="backdrop-blur-xl bg-white/70 dark:bg-gray-950/70 border border-white/20 dark:border-gray-800/50 rounded-2xl shadow-lg shadow-black/5 supports-[backdrop-filter]:bg-white/60 dark:supports-[backdrop-filter]:bg-gray-950/60 transition-all duration-300">
+        <div className="flex h-16 items-center justify-between px-6">
+          <div className="flex items-center gap-6">
             <Link
-              href="/login"
-              className="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-primary transition-colors"
+              href="/"
+              className="flex items-center gap-2 font-black text-2xl tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-primary to-blue-600 dark:from-blue-400 dark:to-blue-200"
             >
-              Log In
+              SEBI
             </Link>
-            <Link
-              href="/signup"
-              className="text-sm font-bold bg-primary text-white px-4 py-2 rounded-lg hover:bg-primary/90 transition-all shadow-lg shadow-primary/20"
-            >
-              Sign Up
-            </Link>
+            <span className="hidden lg:inline-flex items-center text-[10px] font-mono font-medium text-primary/60 dark:text-gray-400 bg-primary/5 dark:bg-gray-800 px-2 py-1 rounded-full border border-primary/10 dark:border-gray-700">
+              REG: INZ000000000
+            </span>
+          </div>
+
+          <nav className="hidden xl:flex items-center gap-1">
+            {navLinks.map((link) => {
+              const isActive = pathname === link.href;
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className={`relative px-3 py-2 text-sm font-medium transition-colors hover:text-primary dark:hover:text-white ${
+                    isActive
+                      ? "text-primary dark:text-white"
+                      : "text-gray-600 dark:text-gray-400"
+                  }`}
+                >
+                  {link.label}
+                  {isActive && (
+                    <motion.div
+                      layoutId="navbar-indicator"
+                      className="absolute inset-0 bg-primary/10 dark:bg-white/10 rounded-lg -z-10"
+                      transition={{
+                        type: "spring",
+                        bounce: 0.2,
+                        duration: 0.6,
+                      }}
+                    />
+                  )}
+                </Link>
+              );
+            })}
+          </nav>
+
+          <div className="flex items-center gap-4">
+            <ThemeToggle />
+            <div className="hidden sm:flex items-center gap-3">
+              <Link
+                href="/login"
+                className="text-sm font-bold text-gray-700 dark:text-gray-300 hover:text-primary transition-colors px-3 py-2"
+              >
+                Log In
+              </Link>
+              <Link
+                href="/signup"
+                className="relative text-sm font-bold bg-primary text-white px-5 py-2.5 rounded-xl overflow-hidden group hover:shadow-lg hover:shadow-primary/25 transition-all duration-300"
+              >
+                <span className="relative z-10">Get Started</span>
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-indigo-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              </Link>
+            </div>
           </div>
         </div>
       </div>

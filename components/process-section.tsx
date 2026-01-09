@@ -1,44 +1,83 @@
 "use client";
 
 import { FadeIn } from "@/components/fade-in";
+import Image from "next/image";
+
+const steps = [
+  {
+    title: "Discovery",
+    description:
+      "We scan the entire market using proprietary screeners to identify high-probability setups.",
+  },
+  {
+    title: "Analysis",
+    description:
+      "Our analysts perform deep-dive technical and fundamental research to validate the trend.",
+  },
+  {
+    title: "Execution",
+    description:
+      " precise entry and exit levels are defined with strict risk-reward ratios.",
+  },
+  {
+    title: "Review",
+    description:
+      "Continuous monitoring of open positions and regular performance audits.",
+  },
+];
 
 export function ProcessSection() {
-  const steps = [
-    { number: "01", title: "Learn", desc: "Build a strong foundation." },
-    { number: "02", title: "Analyze", desc: "Understand market trends." },
-    { number: "03", title: "Execute", desc: "Trade with discipline." },
-    { number: "04", title: "Review", desc: "Journal and improve." },
-  ];
-
   return (
-    <section className="py-20 bg-background overflow-hidden">
+    <section className="py-20 bg-background overflow-hidden relative">
       <div className="container mx-auto px-4">
-        <FadeIn className="text-center mb-16">
-          <h2 className="text-3xl font-bold mb-4 text-foreground">
-            Our Proven Process
-          </h2>
-          <p className="text-gray-600 dark:text-gray-400">
-            The roadmap to consistent trading success.
-          </p>
-        </FadeIn>
+        <div className="flex flex-col-reverse lg:flex-row items-center gap-16">
+          {/* Left Image */}
+          <FadeIn className="lg:w-1/2 w-full" direction="right">
+            <div className="relative rounded-2xl overflow-hidden shadow-2xl skew-y-3 lg:-skew-y-3 transform hover:skew-y-0 transition-transform duration-700 ease-out border-4 border-white dark:border-gray-800 aspect-video lg:aspect-square lg:h-[500px]">
+              <Image
+                src="/images/bull-market.png"
+                alt="Process Visualization"
+                fill
+                className="object-cover"
+              />
+              <div className="absolute inset-0 bg-linear-to-t from-black/80 via-transparent to-transparent flex items-end p-8 z-20">
+                <p className="text-white text-lg font-bold">
+                  "Plan the trade, trade the plan."
+                </p>
+              </div>
+            </div>
+          </FadeIn>
 
-        <div className="relative">
-          <div className="hidden md:block absolute top-1/2 left-0 w-full h-0.5 bg-gray-200 dark:bg-gray-800 -translate-y-1/2 z-0" />
+          {/* Right Content */}
+          <div className="lg:w-1/2 w-full">
+            <FadeIn>
+              <h2 className="text-3xl font-bold mb-8 text-foreground">
+                Our Research Process
+              </h2>
+            </FadeIn>
 
-          <div className="grid md:grid-cols-4 gap-8 relative z-10">
-            {steps.map((step, index) => (
-              <FadeIn key={index} delay={index * 0.1}>
-                <div className="bg-background p-8 rounded-xl border border-gray-200 dark:border-gray-800 text-center shadow-lg h-full">
-                  <span className="text-5xl font-black text-gray-100 dark:text-gray-800 mb-4 block">
-                    {step.number}
-                  </span>
-                  <h3 className="text-xl font-bold mb-2 text-foreground">
-                    {step.title}
-                  </h3>
-                  <p className="text-gray-500">{step.desc}</p>
-                </div>
-              </FadeIn>
-            ))}
+            <div className="space-y-8 relative">
+              {/* Connecting Line */}
+              <div className="absolute left-6 top-4 bottom-4 w-0.5 bg-gray-200 dark:bg-gray-800" />
+
+              {steps.map((step, index) => (
+                <FadeIn key={index} delay={index * 0.1}>
+                  <div className="relative flex gap-6">
+                    <div className="shrink-0 w-12 h-12 bg-background border-2 border-primary rounded-full flex items-center justify-center font-bold text-primary z-10">
+                      {index + 1}
+                    </div>
+                    <div className="space-y-2 pb-2">
+                      <h3 className="text-xl font-bold text-foreground">
+                        {step.title}
+                      </h3>
+                      <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
+                        {step.description}
+                      </p>
+                    </div>
+                  </div>
+                </FadeIn>
+              ))}
+            </div>
           </div>
         </div>
       </div>

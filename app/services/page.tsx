@@ -5,6 +5,8 @@ import { DisclaimerStrip } from "@/components/disclaimer-strip";
 import { FadeIn } from "@/components/fade-in";
 import { FloatingIcons } from "@/components/floating-icons";
 import { Footer } from "@/components/footer";
+import { PageHeader } from "@/components/page-header";
+import Image from "next/image";
 
 const services = [
   {
@@ -69,19 +71,49 @@ export default function ServicesPage() {
   return (
     <main className="min-h-screen bg-background relative overflow-hidden">
       <FloatingIcons />
-      <div className="bg-primary text-secondary py-16 relative z-10">
-        <div className="container mx-auto px-4 text-center">
-          <FadeIn>
-            <h1 className="text-4xl font-bold mb-4">Our Research Services</h1>
-            <p className="text-gray-300 max-w-2xl mx-auto">
-              Professionally managed research services designed to meet diverse
-              trading goals. Choose the plan that fits your risk profile.
-            </p>
-          </FadeIn>
-        </div>
-      </div>
+      <PageHeader
+        title="Our Research Services"
+        description="Professionally managed research services designed to meet diverse trading goals. Choose the plan that fits your risk profile."
+      />
 
+      {/* Introduction with Image */}
       <div className="container mx-auto px-4 py-16 relative z-10">
+        <div className="flex flex-col lg:flex-row items-center gap-12 mb-16">
+          <div className="lg:w-1/2 space-y-6">
+            <FadeIn>
+              <h2 className="text-3xl font-bold text-foreground">
+                Strategies for Every Trader
+              </h2>
+              <p className="text-gray-600 dark:text-gray-300 text-lg leading-relaxed">
+                Whether you are an aggressive intraday trader or a conservative
+                long-term investor, we have a research product tailored for you.
+                Our strategies are back-tested and deployed with strict risk
+                management protocols.
+              </p>
+              <div className="flex gap-4">
+                <div className="px-4 py-2 bg-blue-50 dark:bg-blue-900/20 text-primary dark:text-blue-400 rounded-lg font-medium text-sm">
+                  SEBI Regulated
+                </div>
+                <div className="px-4 py-2 bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-400 rounded-lg font-medium text-sm">
+                  Verified Performance
+                </div>
+              </div>
+            </FadeIn>
+          </div>
+          <div className="lg:w-1/2">
+            <FadeIn direction="left">
+              <div className="relative rounded-2xl overflow-hidden shadow-2xl skew-x-1 hover:skew-x-0 transition-transform duration-500 border-4 border-white dark:border-gray-800 h-[400px] w-full">
+                <Image
+                  src="/images/services-hero.png"
+                  alt="Trading Services Growth"
+                  fill
+                  className="object-cover hover:scale-105 transition-transform duration-700"
+                />
+              </div>
+            </FadeIn>
+          </div>
+        </div>
+
         <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {services.map((service, index) => (
             <FadeIn key={index} delay={index * 0.05}>
