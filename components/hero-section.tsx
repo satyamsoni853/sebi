@@ -39,10 +39,9 @@ export function HeroSection() {
                 transition={{
                   duration: 0.8,
                   delay: 0.6, // Delays until after "with" appears
-                  description: "Pop in effect for the keyword",
                   ease: "easeOut",
                 }}
-                className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-blue-600 dark:from-blue-400 dark:to-blue-200 inline-block"
+                className="text-transparent bg-clip-text bg-linear-to-r from-primary to-blue-600 dark:from-blue-400 dark:to-blue-200 inline-block"
               >
                 Confidence
               </motion.span>
