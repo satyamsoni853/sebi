@@ -4,9 +4,12 @@ import Link from "next/link";
 import { ThemeToggle } from "./theme-toggle";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
+import { useState } from "react";
+import { Menu, X } from "lucide-react";
 
 export function Navbar() {
   const pathname = usePathname();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const navLinks = [
     { href: "/", label: "Home" },
@@ -82,8 +85,60 @@ export function Navbar() {
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-indigo-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </Link>
             </div>
+
+            {/* Mobile Menu Toggle */}
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="xl:hidden p-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+            >
+              {isMobileMenuOpen ? (
+                <X className="w-6 h-6" />
+              ) : (
+                <Menu className="w-6 h-6" />
+              )}
+            </button>
           </div>
         </div>
+
+        {/* Mobile Menu Dropdown */}
+        {isMobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="xl:hidden absolute top-full left-0 right-0 mt-4 mx-4 p-4 rounded-2xl bg-white/90 dark:bg-gray-950/90 backdrop-blur-xl border border-gray-200 dark:border-gray-800 shadow-xl flex flex-col gap-2"
+          >
+            {navLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                onClick={() => setIsMobileMenuOpen(false)}
+                className={`px-4 py-3 rounded-xl text-sm font-bold transition-colors ${
+                  pathname === link.href
+                    ? "bg-primary/10 text-primary dark:bg-white/10 dark:text-white"
+                    : "hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-600 dark:text-gray-400"
+                }`}
+              >
+                {link.label}
+              </Link>
+            ))}
+            <div className="h-px bg-gray-200 dark:bg-gray-800 my-2" />
+            <div className="flex flex-col gap-2">
+              <Link
+                href="/login"
+                className="px-4 py-3 rounded-xl text-sm font-bold text-center hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300 transition-colors"
+              >
+                Log In
+              </Link>
+              <Link
+                href="/signup"
+                className="px-4 py-3 rounded-xl text-sm font-bold text-center bg-primary text-white shadow-lg shadow-primary/20"
+              >
+                Get Started
+              </Link>
+            </div>
+          </motion.div>
+        )}
       </div>
     </header>
   );

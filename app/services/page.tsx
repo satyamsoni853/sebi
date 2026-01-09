@@ -102,7 +102,7 @@ export default function ServicesPage() {
           </div>
           <div className="lg:w-1/2">
             <FadeIn direction="left">
-              <div className="relative rounded-2xl overflow-hidden shadow-2xl skew-x-1 hover:skew-x-0 transition-transform duration-500 border-4 border-white dark:border-gray-800 h-[400px] w-full">
+              <div className="relative rounded-2xl overflow-hidden shadow-2xl skew-x-1 hover:skew-x-0 transition-transform duration-500 border-4 border-white dark:border-gray-800 h-[250px] md:h-[400px] w-full">
                 <Image
                   src="/images/services-hero.png"
                   alt="Trading Services Growth"
