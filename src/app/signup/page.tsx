@@ -1,10 +1,46 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import { ArrowLeft, Mail, Lock, User, UserPlus } from "lucide-react";
 import { FadeIn } from "@/components/ui/fade-in";
+import { useAuth } from "@/contexts/auth-context";
+import { useRouter } from "next/navigation";
 
 export default function SignupPage() {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [agreedToTerms, setAgreedToTerms] = useState(false);
+  const { register } = useAuth(); // Destructure register
+  const router = useRouter();
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!name || !email || !password) {
+      alert("Please fill in all fields");
+      return;
+    }
+
+    if (password.length < 8) {
+      alert("Password must be at least 8 characters long");
+      return;
+    }
+
+    if (!agreedToTerms) {
+      alert("Please agree to the Terms of Service and Privacy Policy");
+      return;
+    }
+
+    try {
+      await register({ name, email, password });
+      router.push("/");
+    } catch (error: any) {
+      alert(error.message || "Registration failed. Please try again.");
+    }
+  };
+
   return (
     <main className="min-h-screen grid lg:grid-cols-2 bg-background">
       {/* Left Column - Branding (Hidden on mobile) */}
@@ -58,7 +94,7 @@ export default function SignupPage() {
           </FadeIn>
 
           <FadeIn delay={0.1}>
-            <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
+            <form className="space-y-6" onSubmit={handleSubmit}>
               <div className="space-y-2">
                 <label
                   htmlFor="name"
@@ -71,8 +107,11 @@ export default function SignupPage() {
                   <input
                     id="name"
                     type="text"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
                     className="w-full pl-10 pr-4 py-3 rounded-xl border border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
                     placeholder="John Doe"
+                    required
                   />
                 </div>
               </div>
@@ -89,8 +128,11 @@ export default function SignupPage() {
                   <input
                     id="email"
                     type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     className="w-full pl-10 pr-4 py-3 rounded-xl border border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
                     placeholder="name@example.com"
+                    required
                   />
                 </div>
               </div>
@@ -107,8 +149,11 @@ export default function SignupPage() {
                   <input
                     id="password"
                     type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                     className="w-full pl-10 pr-4 py-3 rounded-xl border border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
                     placeholder="Create a strong password"
+                    required
                   />
                 </div>
                 <p className="text-xs text-gray-400">
@@ -121,6 +166,8 @@ export default function SignupPage() {
                   type="checkbox"
                   className="mt-1 rounded border-gray-300 dark:border-gray-700 text-primary focus:ring-primary"
                   id="terms"
+                  checked={agreedToTerms}
+                  onChange={(e) => setAgreedToTerms(e.target.checked)}
                 />
                 <label
                   htmlFor="terms"
@@ -141,7 +188,10 @@ export default function SignupPage() {
                 </label>
               </div>
 
-              <button className="w-full py-3 bg-primary hover:bg-primary/90 text-white font-bold rounded-xl transition-transform active:scale-[0.98] flex items-center justify-center gap-2 shadow-lg shadow-primary/25">
+              <button
+                type="submit"
+                className="w-full py-3 bg-primary hover:bg-primary/90 text-white font-bold rounded-xl transition-transform active:scale-[0.98] flex items-center justify-center gap-2 shadow-lg shadow-primary/25"
+              >
                 <UserPlus className="w-5 h-5" /> Create Account
               </button>
             </form>

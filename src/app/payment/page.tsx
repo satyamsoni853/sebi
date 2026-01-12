@@ -74,6 +74,24 @@ function PaymentContent() {
               </div>
             </div>
           </div>
+
+          <div className="mt-6 pt-6 border-t border-gray-100 dark:border-gray-800">
+            <button
+              className="w-full py-3 bg-primary text-white font-bold rounded-xl hover:bg-primary/90 transition-all"
+              onClick={async () => {
+                try {
+                  const { PaymentApi } = await import("@/app/Api/Api");
+                  await PaymentApi.createOrder({ plan, price });
+                  alert("Online payment initiated! (Mock)");
+                } catch (e) {
+                  console.error(e);
+                  alert("Failed to initiate payment");
+                }
+              }}
+            >
+              Pay Online
+            </button>
+          </div>
         </div>
       </div>
 

@@ -8,66 +8,26 @@ import { Footer } from "@/components/layout/footer";
 import { PageHeader } from "@/components/layout/page-header";
 import Image from "next/image";
 
-const services = [
-  {
-    segment: "Index",
-    instrument: "Index Options",
-    tradingStyle: "Intraday",
-    deliveryMode: "Telegram / SMS",
-    riskDisclaimer: "High risk. Options buying involves premium erosion risk.",
-  },
-  {
-    segment: "Index",
-    instrument: "Index Futures",
-    tradingStyle: "Intraday / Swing",
-    deliveryMode: "Telegram / SMS",
-    riskDisclaimer: "High risk. Futures carry unlimited liability.",
-  },
-  {
-    segment: "Equity",
-    instrument: "Stock Options",
-    tradingStyle: "Intraday",
-    deliveryMode: "Telegram / SMS",
-    riskDisclaimer: "Market risk involved. Illiquidity risk.",
-  },
-  {
-    segment: "Equity",
-    instrument: "Stock Futures",
-    tradingStyle: "Swing",
-    deliveryMode: "Telegram / SMS",
-    riskDisclaimer: "High leverage product. Stop loss mandatory.",
-  },
-  {
-    segment: "Equity",
-    instrument: "Cash Intraday",
-    tradingStyle: "Day Trading",
-    deliveryMode: "App Notification",
-    riskDisclaimer: "Volatility risk. Square off by end of day.",
-  },
-  {
-    segment: "Equity",
-    instrument: "Short Term Delivery",
-    tradingStyle: "Positional (1-2 weeks)",
-    deliveryMode: "Email / App",
-    riskDisclaimer: "Subject to market trends and news events.",
-  },
-  {
-    segment: "Equity",
-    instrument: "Multibagger Gems",
-    tradingStyle: "Long Term Investment",
-    deliveryMode: "Research Report",
-    riskDisclaimer: "Past performance does not guarantee future results.",
-  },
-  {
-    segment: "Commodity",
-    instrument: "Crude & Gold",
-    tradingStyle: "Swing",
-    deliveryMode: "SMS / App",
-    riskDisclaimer: "Global market risk factors apply.",
-  },
-];
+import { useState, useEffect } from "react";
+import { ServiceApi } from "@/app/Api/Api";
 
 export default function ServicesPage() {
+  const [services, setServices] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchServices = async () => {
+      try {
+        const data: any = await ServiceApi.getAllServices();
+        setServices(Array.isArray(data) ? data : data.data || []);
+      } catch (error) {
+        console.error("Failed to fetch services", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchServices();
+  }, []);
   return (
     <main className="min-h-screen bg-background relative overflow-hidden">
       <FloatingIcons />
@@ -115,11 +75,17 @@ export default function ServicesPage() {
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {services.map((service, index) => (
-            <FadeIn key={index} delay={index * 0.05}>
-              <ServiceCard {...service} />
-            </FadeIn>
-          ))}
+          {loading ? (
+            <div className="col-span-full text-center py-20">
+              Loading services...
+            </div>
+          ) : (
+            services.map((service, index) => (
+              <FadeIn key={index} delay={index * 0.05}>
+                <ServiceCard {...service} />
+              </FadeIn>
+            ))
+          )}
         </div>
       </div>
 

@@ -3,8 +3,18 @@
 import { User, CreditCard, Settings, LogOut, Bell, Shield } from "lucide-react";
 import { FadeIn } from "@/components/ui/fade-in";
 import Link from "next/link";
+import { useAuth } from "@/contexts/auth-context";
+import { useRouter } from "next/navigation";
 
 export default function ProfilePage() {
+  const { user, logout } = useAuth();
+  const router = useRouter();
+
+  const handleLogout = () => {
+    logout();
+    router.push("/");
+  };
+
   return (
     <main className="min-h-screen bg-gray-50 dark:bg-black py-8">
       <div className="container mx-auto px-4">
@@ -21,32 +31,51 @@ export default function ProfilePage() {
               <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 overflow-hidden sticky top-24">
                 <div className="p-6 border-b border-gray-100 dark:border-gray-800 text-center">
                   <div className="w-20 h-20 bg-primary/10 rounded-full mx-auto mb-4 flex items-center justify-center text-primary font-bold text-2xl">
-                    JD
+                    {user?.name
+                      .split(" ")
+                      .map((n) => n[0])
+                      .join("")
+                      .toUpperCase()
+                      .slice(0, 2) || "JD"}
                   </div>
-                  <h2 className="font-bold text-foreground">John Doe</h2>
+                  <h2 className="font-bold text-foreground">
+                    {user?.name || "John Doe"}
+                  </h2>
                   <p className="text-xs text-gray-500">Premium Member</p>
                 </div>
                 <nav className="p-4 space-y-1">
-                  <button className="flex items-center gap-3 w-full px-4 py-3 text-sm font-medium bg-primary/5 text-primary rounded-lg">
+                  <Link
+                    href="/profile"
+                    className="flex items-center gap-3 w-full px-4 py-3 text-sm font-medium bg-primary/5 text-primary rounded-lg"
+                  >
                     <User className="w-4 h-4" /> Profile Overview
-                  </button>
-                  <button className="flex items-center gap-3 w-full px-4 py-3 text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-colors">
+                  </Link>
+                  <Link
+                    href="/profile/billing"
+                    className="flex items-center gap-3 w-full px-4 py-3 text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-colors"
+                  >
                     <CreditCard className="w-4 h-4" /> Subscription & Billing
-                  </button>
-                  <button className="flex items-center gap-3 w-full px-4 py-3 text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-colors">
+                  </Link>
+                  <Link
+                    href="/profile/notifications"
+                    className="flex items-center gap-3 w-full px-4 py-3 text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-colors"
+                  >
                     <Bell className="w-4 h-4" /> Notifications
-                  </button>
-                  <button className="flex items-center gap-3 w-full px-4 py-3 text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-colors">
+                  </Link>
+                  <Link
+                    href="/profile/settings"
+                    className="flex items-center gap-3 w-full px-4 py-3 text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-colors"
+                  >
                     <Settings className="w-4 h-4" /> Account Settings
-                  </button>
+                  </Link>
                 </nav>
                 <div className="p-4 border-t border-gray-100 dark:border-gray-800">
-                  <Link
-                    href="/"
+                  <button
+                    onClick={handleLogout}
                     className="flex items-center gap-3 w-full px-4 py-3 text-sm font-medium text-red-500 hover:bg-red-50 dark:hover:bg-red-900/10 rounded-lg transition-colors"
                   >
                     <LogOut className="w-4 h-4" /> Sign Out
-                  </Link>
+                  </button>
                 </div>
               </div>
             </FadeIn>
@@ -73,9 +102,12 @@ export default function ProfilePage() {
                     </span>
                   </div>
                   <div className="relative z-10 mt-8 flex gap-4">
-                    <button className="bg-white text-primary px-6 py-2 rounded-lg font-bold text-sm hover:bg-blue-50 transition-colors">
+                    <Link
+                      href="/profile/billing"
+                      className="bg-white text-primary px-6 py-2 rounded-lg font-bold text-sm hover:bg-blue-50 transition-colors"
+                    >
                       Upgrade Plan
-                    </button>
+                    </Link>
                     <button className="bg-transparent border border-white/30 text-white px-6 py-2 rounded-lg font-bold text-sm hover:bg-white/10 transition-colors">
                       View Invoice
                     </button>

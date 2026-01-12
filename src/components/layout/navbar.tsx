@@ -6,11 +6,14 @@ import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
+import { useAuth } from "@/contexts/auth-context";
+import { UserMenu } from "@/components/ui/user-menu";
 
 export function Navbar() {
   const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [hoveredServices, setHoveredServices] = useState(false);
+  const { isAuthenticated } = useAuth();
 
   const navLinks = [
     { href: "/", label: "Home" },
@@ -131,19 +134,25 @@ export function Navbar() {
           <div className="flex items-center gap-4">
             <ThemeToggle />
             <div className="hidden sm:flex items-center gap-3">
-              <Link
-                href="/login"
-                className="text-sm font-bold text-gray-700 dark:text-gray-300 hover:text-primary transition-colors px-3 py-2"
-              >
-                Log In
-              </Link>
-              <Link
-                href="/signup"
-                className="relative text-sm font-bold bg-primary text-white px-5 py-2.5 rounded-xl overflow-hidden group hover:shadow-lg hover:shadow-primary/25 transition-all duration-300"
-              >
-                <span className="relative z-10">Get Started</span>
-                <div className="absolute inset-0 bg-linear-to-r from-blue-600 to-indigo-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              </Link>
+              {isAuthenticated ? (
+                <UserMenu />
+              ) : (
+                <>
+                  <Link
+                    href="/login"
+                    className="text-sm font-bold text-gray-700 dark:text-gray-300 hover:text-primary transition-colors px-3 py-2"
+                  >
+                    Log In
+                  </Link>
+                  <Link
+                    href="/signup"
+                    className="relative text-sm font-bold bg-primary text-white px-5 py-2.5 rounded-xl overflow-hidden group hover:shadow-lg hover:shadow-primary/25 transition-all duration-300"
+                  >
+                    <span className="relative z-10">Get Started</span>
+                    <div className="absolute inset-0 bg-linear-to-r from-blue-600 to-indigo-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  </Link>
+                </>
+              )}
             </div>
 
             {/* Mobile Menu Toggle */}
@@ -183,20 +192,28 @@ export function Navbar() {
               </Link>
             ))}
             <div className="h-px bg-gray-200 dark:bg-gray-800 my-2" />
-            <div className="flex flex-col gap-2">
-              <Link
-                href="/login"
-                className="px-4 py-3 rounded-xl text-sm font-bold text-center hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300 transition-colors"
-              >
-                Log In
-              </Link>
-              <Link
-                href="/signup"
-                className="px-4 py-3 rounded-xl text-sm font-bold text-center bg-primary text-white shadow-lg shadow-primary/20"
-              >
-                Get Started
-              </Link>
-            </div>
+            {isAuthenticated ? (
+              <div className="flex flex-col gap-2">
+                <UserMenu />
+              </div>
+            ) : (
+              <div className="flex flex-col gap-2">
+                <Link
+                  href="/login"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="px-4 py-3 rounded-xl text-sm font-bold text-center hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300 transition-colors"
+                >
+                  Log In
+                </Link>
+                <Link
+                  href="/signup"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="px-4 py-3 rounded-xl text-sm font-bold text-center bg-primary text-white shadow-lg shadow-primary/20"
+                >
+                  Get Started
+                </Link>
+              </div>
+            )}
           </motion.div>
         )}
       </div>

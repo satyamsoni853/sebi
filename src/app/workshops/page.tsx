@@ -3,17 +3,29 @@
 import { PageHeader } from "@/components/layout/page-header";
 import { Footer } from "@/components/layout/footer";
 import { FadeIn } from "@/components/ui/fade-in";
-import {
-  Video,
-  Calendar,
-  Clock,
-  Users,
-  PlayCircle,
-  BookOpen,
-  CheckCircle,
-} from "lucide-react";
+import { Calendar, Clock, PlayCircle, CheckCircle } from "lucide-react";
+
+import { useState, useEffect } from "react";
+import { WorkshopsApi } from "@/app/Api/Api";
 
 export default function WorkshopsPage() {
+  const [workshops, setWorkshops] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchWorkshops = async () => {
+      try {
+        const data: any = await WorkshopsApi.getAllWorkshops();
+        setWorkshops(Array.isArray(data) ? data : data.data || []);
+      } catch (error) {
+        console.error("Failed to fetch workshops", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchWorkshops();
+  }, []);
+
   return (
     <main className="min-h-screen bg-background">
       <PageHeader
@@ -111,45 +123,34 @@ export default function WorkshopsPage() {
           </FadeIn>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[
-              {
-                title: "Technical Analysis Basics",
-                duration: "2h 30m",
-                level: "Beginner",
-              },
-              {
-                title: "Advanced Fib Retracements",
-                duration: "1h 45m",
-                level: "Intermediate",
-              },
-              {
-                title: "Algo Trading 101",
-                duration: "3h 00m",
-                level: "Advanced",
-              },
-            ].map((vid, i) => (
-              <FadeIn key={i} delay={i * 0.1}>
-                <div className="group bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-2xl overflow-hidden hover:shadow-xl transition-all cursor-pointer">
-                  <div className="h-48 bg-gray-200 dark:bg-gray-800 relative flex items-center justify-center group-hover:bg-gray-300 dark:group-hover:bg-gray-700 transition-colors">
-                    <PlayCircle className="w-16 h-16 text-primary opacity-80 group-hover:scale-110 transition-transform" />
-                    <div className="absolute bottom-2 right-2 bg-black/70 text-white text-xs px-2 py-1 rounded">
-                      {vid.duration}
+            {loading ? (
+              <div>Loading...</div>
+            ) : (
+              workshops.map((vid, i) => (
+                <FadeIn key={i} delay={i * 0.1}>
+                  <div className="group bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-2xl overflow-hidden hover:shadow-xl transition-all cursor-pointer">
+                    <div className="h-48 bg-gray-200 dark:bg-gray-800 relative flex items-center justify-center group-hover:bg-gray-300 dark:group-hover:bg-gray-700 transition-colors">
+                      <PlayCircle className="w-16 h-16 text-primary opacity-80 group-hover:scale-110 transition-transform" />
+                      <div className="absolute bottom-2 right-2 bg-black/70 text-white text-xs px-2 py-1 rounded">
+                        {vid.duration || "1h 30m"}
+                      </div>
+                    </div>
+                    <div className="p-6">
+                      <div className="text-xs font-bold text-primary mb-2 uppercase">
+                        {vid.level || "General"}
+                      </div>
+                      <h3 className="font-bold text-lg mb-2 group-hover:text-primary transition-colors">
+                        {vid.title}
+                      </h3>
+                      <p className="text-gray-500 text-sm">
+                        {vid.description ||
+                          "Full HD recording with Q&A session pdf included."}
+                      </p>
                     </div>
                   </div>
-                  <div className="p-6">
-                    <div className="text-xs font-bold text-primary mb-2 uppercase">
-                      {vid.level}
-                    </div>
-                    <h3 className="font-bold text-lg mb-2 group-hover:text-primary transition-colors">
-                      {vid.title}
-                    </h3>
-                    <p className="text-gray-500 text-sm">
-                      Full HD recording with Q&A session pdf included.
-                    </p>
-                  </div>
-                </div>
-              </FadeIn>
-            ))}
+                </FadeIn>
+              ))
+            )}
           </div>
         </section>
       </div>

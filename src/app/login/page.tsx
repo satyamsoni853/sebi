@@ -1,10 +1,34 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import { ArrowLeft, Mail, Lock, LogIn } from "lucide-react";
 import { FadeIn } from "@/components/ui/fade-in";
+import { useAuth } from "@/contexts/auth-context";
+import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const { login } = useAuth();
+  const router = useRouter();
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!email || !password) {
+      alert("Please fill in all fields");
+      return;
+    }
+
+    try {
+      await login({ email, password });
+      router.push("/");
+    } catch (error: any) {
+      alert(error.message || "Login failed. Please check your credentials.");
+    }
+  };
+
   return (
     <main className="min-h-screen grid lg:grid-cols-2 bg-background">
       {/* Left Column - Branding (Hidden on mobile) */}
@@ -43,7 +67,7 @@ export default function LoginPage() {
             <div className="text-center lg:text-left">
               <h2 className="text-3xl font-bold text-foreground">Sign In</h2>
               <p className="mt-2 text-gray-600 dark:text-gray-400">
-                Don't have an account?{" "}
+                Don&apos;t have an account?{" "}
                 <Link
                   href="/signup"
                   className="text-primary dark:text-blue-400 font-semibold hover:underline"
@@ -55,7 +79,7 @@ export default function LoginPage() {
           </FadeIn>
 
           <FadeIn delay={0.1}>
-            <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
+            <form className="space-y-6" onSubmit={handleSubmit}>
               <div className="space-y-2">
                 <label
                   htmlFor="email"
@@ -68,8 +92,11 @@ export default function LoginPage() {
                   <input
                     id="email"
                     type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     className="w-full pl-10 pr-4 py-3 rounded-xl border border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
                     placeholder="name@example.com"
+                    required
                   />
                 </div>
               </div>
@@ -94,13 +121,19 @@ export default function LoginPage() {
                   <input
                     id="password"
                     type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                     className="w-full pl-10 pr-4 py-3 rounded-xl border border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
                     placeholder="••••••••"
+                    required
                   />
                 </div>
               </div>
 
-              <button className="w-full py-3 bg-primary hover:bg-primary/90 text-white font-bold rounded-xl transition-transform active:scale-[0.98] flex items-center justify-center gap-2 shadow-lg shadow-primary/25">
+              <button
+                type="submit"
+                className="w-full py-3 bg-primary hover:bg-primary/90 text-white font-bold rounded-xl transition-transform active:scale-[0.98] flex items-center justify-center gap-2 shadow-lg shadow-primary/25"
+              >
                 <LogIn className="w-5 h-5" /> Sign In
               </button>
             </form>
