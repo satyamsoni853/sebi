@@ -24,6 +24,7 @@ export function Navbar() {
     { href: "/charter", label: "Investor Charter" },
     { href: "/disclosures", label: "Disclosures" },
     { href: "/contact", label: "Contact" },
+    
   ];
 
   return (

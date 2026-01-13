@@ -27,16 +27,16 @@ export default function Home() {
       <TelegramPromo />
       <AboutSection />
       <CoursesPreview />
-      <VideoEducationSection />
-      <ServicesSection />
+      {/* <VideoEducationSection /> */}
+      {/* <ServicesSection /> */}
 
       <WorkshopsSection />
 
-      <WhyChooseUs />
-      <ProcessSection />
-      <TestimonialsSection />
-      <FAQSection />
-      <CTASection />
+      {/* <WhyChooseUs /> */}
+      {/* <ProcessSection /> */}
+      {/* <TestimonialsSection /> */}
+      {/* <FAQSection /> */}
+      {/* <CTASection /> */}
       <Footer />
     </main>
   );
