@@ -3,7 +3,7 @@
 import { FadeIn } from "@/components/ui/fade-in";
 
 interface PageHeaderProps {
-  title: string;
+  title: React.ReactNode | string;
   description: string;
 }
 

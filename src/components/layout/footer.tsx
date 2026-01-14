@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import {
   Facebook,
   Twitter,
@@ -15,16 +16,20 @@ export function Footer() {
       <div className="container mx-auto px-4 py-16">
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
           <div>
-            <h3 className="text-white text-xl font-bold mb-4">
-              SEBI Research Analyst
-            </h3>
+            <Link href="/" className="flex items-center gap-2 mb-4">
+              <Image
+                src="/images/Ashwini SD.png"
+                alt="Ashwini SD Logo"
+                width={40}
+                height={40}
+                className="w-10 h-10 object-contain"
+              />
+              <span className="text-white text-xl font-bold">Ashwini SD</span>
+            </Link>
             <p className="mb-4 text-sm leading-relaxed">
               Empowering traders with ethical research and professional
               education. Registered with Securities and Exchange Board of India.
             </p>
-            <div className="inline-block px-3 py-1 border border-gray-700 rounded text-xs font-mono">
-              REG: INZ000000000
-            </div>
           </div>
 
           <div>
@@ -159,8 +164,7 @@ export function Footer() {
             are for illustration only and are not recommendatory.
           </p>
           <p>
-            &copy; {new Date().getFullYear()} SEBI Research Analyst. All rights
-            reserved.
+            &copy; {new Date().getFullYear()} Ashwini SD. All rights reserved.
           </p>
         </div>
       </div>

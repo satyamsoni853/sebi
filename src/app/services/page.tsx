@@ -15,13 +15,50 @@ export default function ServicesPage() {
   const [services, setServices] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
+  const mockServices = [
+    {
+      segment: "Equity Cash",
+      instrument: "Intraday & Short Term",
+      tradingStyle: "Techno-Funda Analysis",
+      deliveryMode: "WhatsApp / SMS",
+      riskDisclaimer: "Moderate Risk - Suitable for active traders.",
+    },
+    {
+      segment: "Derivatives",
+      instrument: "Nifty & BankNifty Options",
+      tradingStyle: "Scalping & Positional",
+      deliveryMode: "Telegram Channel",
+      riskDisclaimer: "High Risk - For experienced traders only.",
+    },
+    {
+      segment: "Commodity",
+      instrument: "Crude Oil & Gold",
+      tradingStyle: "Swing Trading",
+      deliveryMode: "App Notifications",
+      riskDisclaimer: "High Volatility - Strict Stop Loss Required.",
+    },
+    {
+      segment: "Investment",
+      instrument: "Long Term Portfolio",
+      tradingStyle: "Fundamental Growth Investing",
+      deliveryMode: "Quarterly Reports",
+      riskDisclaimer: "Low Risk - For wealth creation.",
+    },
+  ];
+
   useEffect(() => {
     const fetchServices = async () => {
       try {
         const data: any = await ServiceApi.getAllServices();
-        setServices(Array.isArray(data) ? data : data.data || []);
+        const apiServices = Array.isArray(data) ? data : data.data || [];
+        if (apiServices.length > 0) {
+          setServices(apiServices);
+        } else {
+          setServices(mockServices);
+        }
       } catch (error) {
-        console.error("Failed to fetch services", error);
+        console.warn("Failed to fetch services, using mock data.", error);
+        setServices(mockServices);
       } finally {
         setLoading(false);
       }

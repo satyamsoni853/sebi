@@ -26,7 +26,18 @@ export default function AboutPage() {
       <FloatingIcons />
 
       <PageHeader
-        title="About SEBI"
+        title={
+          <div className="flex flex-col items-center gap-4">
+            <Image
+              src="/images/Ashwini SD.png"
+              alt="Ashwini SD Logo"
+              width={100}
+              height={100}
+              className="w-24 h-24 object-contain animate-fade-in"
+            />
+            <span>About Ashwini SD</span>
+          </div>
+        }
         description="Pioneering ethical, data-driven financial research since 2008."
       />
 
@@ -76,9 +87,7 @@ export default function AboutPage() {
                 </h2>
                 <p className="text-gray-700 dark:text-gray-300 leading-relaxed text-lg mb-6">
                   We are a{" "}
-                  <strong className="text-foreground">
-                    SEBI Registered Research Analyst firm
-                  </strong>{" "}
+                  <strong className="text-foreground">Ashwini SD</strong>{" "}
                   (Registration No. INZ000000000) based in the financial hub of
                   Mumbai.
                 </p>

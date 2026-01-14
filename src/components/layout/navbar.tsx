@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
@@ -24,23 +25,26 @@ export function Navbar() {
     { href: "/charter", label: "Investor Charter" },
     { href: "/disclosures", label: "Disclosures" },
     { href: "/contact", label: "Contact" },
-    
   ];
 
   return (
-    <header className="sticky top-4 z-50 w-full px-4 mx-auto max-w-7xl">
+    <header className="sticky top-4 z-50 w-full px-4 mx-auto max-w-[95%]">
       <div className="backdrop-blur-xl bg-white/70 dark:bg-gray-950/70 border border-white/20 dark:border-gray-800/50 rounded-2xl shadow-lg shadow-black/5 supports-[backdrop-filter]:bg-white/60 dark:supports-[backdrop-filter]:bg-gray-950/60 transition-all duration-300">
-        <div className="flex h-16 items-center justify-between px-6">
+        <div className="flex h-20 items-center justify-between px-6">
           <div className="flex items-center gap-6">
             <Link
               href="/"
-              className="flex items-center gap-2 font-black text-2xl tracking-tighter text-transparent bg-clip-text bg-linear-to-r from-primary to-blue-600 dark:from-blue-400 dark:to-blue-200"
+              className="flex items-center gap-2 font-black text-3xl tracking-tighter text-transparent bg-clip-text bg-linear-to-r from-primary to-blue-600 dark:from-blue-400 dark:to-blue-200"
             >
-              SEBI
+              <Image
+                src="/images/Ashwini SD.png"
+                alt="Ashwini SD Logo"
+                width={60}
+                height={60}
+                className="w-14 h-14 object-contain"
+              />
+              Ashwini SD
             </Link>
-            <span className="hidden lg:inline-flex items-center text-[10px] font-mono font-medium text-primary/60 dark:text-gray-400 bg-primary/5 dark:bg-gray-800 px-2 py-1 rounded-full border border-primary/10 dark:border-gray-700">
-              REG: INZ000000000
-            </span>
           </div>
 
           <nav className="hidden xl:flex items-center gap-1">
