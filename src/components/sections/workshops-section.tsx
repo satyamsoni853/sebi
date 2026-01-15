@@ -83,6 +83,7 @@ export function WorkshopsSection() {
             <Link
               href="/workshops"
               className="hidden md:flex items-center gap-2 text-primary font-bold hover:gap-4 transition-all"
+              suppressHydrationWarning
             >
               View Full Schedule <ArrowRight className="w-5 h-5" />
             </Link>
@@ -181,6 +182,7 @@ export function WorkshopsSection() {
           <Link
             href="/workshops"
             className="inline-flex items-center gap-2 text-primary font-bold"
+            suppressHydrationWarning
           >
             View Full Schedule <ArrowRight className="w-5 h-5" />
           </Link>

@@ -29,12 +29,14 @@ export function CTASection() {
             <Link
               href="/plans"
               className="px-8 py-4 bg-primary hover:bg-primary/90 text-white font-bold rounded-lg text-lg transition-colors"
+              suppressHydrationWarning
             >
               Explore Plans
             </Link>
             <Link
               href="/courses"
               className="px-8 py-4 bg-transparent border border-primary dark:border-gray-600 text-primary dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 font-bold rounded-lg text-lg transition-colors"
+              suppressHydrationWarning
             >
               Browse Courses
             </Link>

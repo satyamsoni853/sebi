@@ -51,6 +51,7 @@ export function ServiceCard({
           <Link
             href="/contact"
             className="flex items-center justify-center w-full px-4 py-3 bg-gray-50 dark:bg-gray-800 text-foreground font-bold rounded-xl group-hover:bg-primary group-hover:text-white transition-all duration-300"
+            suppressHydrationWarning
           >
             Enquire Now{" "}
             <ArrowRight className="w-4 h-4 ml-2 transform group-hover:translate-x-1 transition-transform" />

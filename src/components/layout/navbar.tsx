@@ -34,14 +34,14 @@ export function Navbar() {
           <div className="flex items-center gap-6">
             <Link
               href="/"
-              className="flex items-center gap-2 font-black text-3xl tracking-tighter text-transparent bg-clip-text bg-linear-to-r from-primary to-blue-600 dark:from-blue-400 dark:to-blue-200"
+              className="flex items-center gap-2 font-black text-2xl tracking-tighter text-transparent bg-clip-text bg-linear-to-r from-primary to-blue-600 dark:from-blue-400 dark:to-blue-200"
             >
               <Image
                 src="/images/Ashwini SD.png"
                 alt="Ashwini SD Logo"
-                width={60}
-                height={60}
-                className="w-14 h-14 object-contain"
+                width={40}
+                height={40}
+                className="w-10 h-10 object-contain"
               />
               Ashwini SD
             </Link>
@@ -60,7 +60,7 @@ export function Navbar() {
                     >
                       <Link
                         href={link.href}
-                        className={`px-3 py-2 text-sm font-medium transition-colors hover:text-primary dark:hover:text-white flex items-center gap-1 ${
+                        className={`px-3 py-2 text-xs font-medium transition-colors hover:text-primary dark:hover:text-white flex items-center gap-1 ${
                           isActive || hoveredServices
                             ? "text-primary dark:text-white"
                             : "text-gray-600 dark:text-gray-400"
@@ -98,7 +98,7 @@ export function Navbar() {
                               <Link
                                 key={item.href}
                                 href={item.href}
-                                className="block px-4 py-2.5 rounded-lg text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-primary/5 hover:text-primary dark:hover:bg-white/5 dark:hover:text-white transition-all text-left"
+                                className="block px-4 py-2.5 rounded-lg text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-primary/5 hover:text-primary dark:hover:bg-white/5 dark:hover:text-white transition-all text-left"
                               >
                                 {item.label}
                               </Link>
@@ -111,7 +111,7 @@ export function Navbar() {
                   ) : (
                     <Link
                       href={link.href}
-                      className={`relative px-3 py-2 text-sm font-medium transition-colors hover:text-primary dark:hover:text-white ${
+                      className={`relative px-3 py-2 text-xs font-medium transition-colors hover:text-primary dark:hover:text-white ${
                         isActive
                           ? "text-primary dark:text-white"
                           : "text-gray-600 dark:text-gray-400"
@@ -145,13 +145,13 @@ export function Navbar() {
                 <>
                   <Link
                     href="/login"
-                    className="text-sm font-bold text-gray-700 dark:text-gray-300 hover:text-primary transition-colors px-3 py-2"
+                    className="text-xs font-medium text-gray-700 dark:text-gray-300 hover:text-primary transition-colors px-3 py-2"
                   >
                     Log In
                   </Link>
                   <Link
                     href="/signup"
-                    className="relative text-sm font-bold bg-primary text-white px-5 py-2.5 rounded-xl overflow-hidden group hover:shadow-lg hover:shadow-primary/25 transition-all duration-300"
+                    className="relative text-xs font-medium bg-primary text-white px-5 py-2.5 rounded-xl overflow-hidden group hover:shadow-lg hover:shadow-primary/25 transition-all duration-300"
                   >
                     <span className="relative z-10">Get Started</span>
                     <div className="absolute inset-0 bg-linear-to-r from-blue-600 to-indigo-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -187,7 +187,7 @@ export function Navbar() {
                 key={link.href}
                 href={link.href}
                 onClick={() => setIsMobileMenuOpen(false)}
-                className={`px-4 py-3 rounded-xl text-sm font-bold transition-colors ${
+                className={`px-4 py-3 rounded-xl text-xs font-bold transition-colors ${
                   pathname === link.href
                     ? "bg-primary/10 text-primary dark:bg-white/10 dark:text-white"
                     : "hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-600 dark:text-gray-400"
@@ -206,14 +206,14 @@ export function Navbar() {
                 <Link
                   href="/login"
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="px-4 py-3 rounded-xl text-sm font-bold text-center hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300 transition-colors"
+                  className="px-4 py-3 rounded-xl text-xs font-bold text-center hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300 transition-colors"
                 >
                   Log In
                 </Link>
                 <Link
                   href="/signup"
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="px-4 py-3 rounded-xl text-sm font-bold text-center bg-primary text-white shadow-lg shadow-primary/20"
+                  className="px-4 py-3 rounded-xl text-xs font-bold text-center bg-primary text-white shadow-lg shadow-primary/20"
                 >
                   Get Started
                 </Link>

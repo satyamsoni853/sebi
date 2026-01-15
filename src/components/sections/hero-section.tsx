@@ -67,12 +67,14 @@ export function HeroSection() {
                 <Link
                   href="/services"
                   className="w-full sm:w-auto px-8 py-4 rounded-xl bg-primary hover:bg-primary/90 text-secondary font-bold transition-all hover:scale-105 flex items-center justify-center gap-2 shadow-lg hover:shadow-primary/20 text-lg"
+                  suppressHydrationWarning
                 >
                   View Services <ArrowRight className="w-5 h-5" />
                 </Link>
                 <Link
                   href="/contact"
                   className="w-full sm:w-auto px-8 py-4 rounded-xl border-2 border-primary dark:border-gray-600 text-primary dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all font-bold text-lg"
+                  suppressHydrationWarning
                 >
                   Contact Us
                 </Link>

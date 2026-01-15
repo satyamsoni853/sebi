@@ -28,6 +28,7 @@ export function AboutSection() {
             <Link
               href="/about"
               className="inline-flex items-center text-primary dark:text-blue-400 font-semibold hover:underline"
+              suppressHydrationWarning
             >
               Read Our Story <ArrowRight className="w-4 h-4 ml-2" />
             </Link>

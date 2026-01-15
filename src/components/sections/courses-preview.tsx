@@ -49,6 +49,7 @@ export function CoursesPreview() {
           <Link
             href="/courses"
             className="hidden md:flex px-6 py-3 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors items-center"
+            suppressHydrationWarning
           >
             View All Courses <ArrowRight className="w-4 h-4 ml-2" />
           </Link>
@@ -69,6 +70,7 @@ export function CoursesPreview() {
                 <Link
                   href="#"
                   className="text-primary dark:text-blue-400 font-medium hover:underline inline-flex items-center"
+                  suppressHydrationWarning
                 >
                   Learn More <ArrowRight className="w-4 h-4 ml-1" />
                 </Link>
@@ -81,6 +83,7 @@ export function CoursesPreview() {
           <Link
             href="/courses"
             className="inline-flex px-6 py-3 bg-primary text-secondary rounded-lg hover:bg-primary/90 transition-colors items-center"
+            suppressHydrationWarning
           >
             View All Courses <ArrowRight className="w-4 h-4 ml-2" />
           </Link>

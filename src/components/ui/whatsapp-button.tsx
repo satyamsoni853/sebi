@@ -11,6 +11,7 @@ export function WhatsAppButton() {
       rel="noopener noreferrer"
       className="fixed bottom-6 right-6 z-50 flex items-center justify-center w-14 h-14 bg-green-500 hover:bg-green-600 text-white rounded-full shadow-2xl transition-transform hover:scale-110 animate-bounce-slow"
       aria-label="Chat on WhatsApp"
+      suppressHydrationWarning
     >
       {/* Simple WhatsApp-like Icon using MessageCircle as base, or custom SVG if preferred. 
           Using SVG for better brand recognition. */}
